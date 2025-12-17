@@ -1,7 +1,7 @@
 import {  HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Categoria } from "../entities/categoria.entity";
-import { Repository } from "typeorm";
+import { ILike, Repository } from "typeorm";
 import { DeleteResult } from "typeorm/browser";
 
 @Injectable()
@@ -35,5 +35,11 @@ export class CategoriaService{
     const categoria = await this.findById(id);
    return await this.CategoriaRepository.delete(id);
   }
+   
+  async findByName(nome:string):Promise<Categoria[]>{
+        return await this.CategoriaRepository.find({
+            where:{nome: ILike(`%${nome}%`)}
+        })
 
+  }
 }

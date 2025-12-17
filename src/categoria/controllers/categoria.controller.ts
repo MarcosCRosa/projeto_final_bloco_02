@@ -35,5 +35,11 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put }
     Delete(@Param('id')id:number):Promise<DeleteResult>{
         return this.CategoriaService.remove(id)
     }
-    
+
+    @Get('buscar/:nome')
+    @HttpCode(HttpStatus.OK)
+    findByName(@Param('nome')nome: string):Promise<Categoria[]>{
+        return this.CategoriaService.findByName(nome);
+    }
+
  }
