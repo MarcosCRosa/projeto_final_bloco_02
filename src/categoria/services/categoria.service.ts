@@ -2,6 +2,7 @@ import {  HttpException, HttpStatus, Injectable, NotFoundException } from "@nest
 import { InjectRepository } from "@nestjs/typeorm";
 import { Categoria } from "../entities/categoria.entity";
 import { Repository } from "typeorm";
+import { DeleteResult } from "typeorm/browser";
 
 @Injectable()
 export class CategoriaService{
@@ -29,5 +30,10 @@ export class CategoriaService{
    
    return await this.CategoriaRepository.save(categoria);
   }
-  
+
+  async remove(id:number):Promise <DeleteResult>{
+    const categoria = await this.findById(id);
+   return await this.CategoriaRepository.delete(id);
+  }
+
 }
