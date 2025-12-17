@@ -1,6 +1,6 @@
 import { Categoria } from '../entities/categoria.entity';
 import { CategoriaService } from './../services/categoria.service';
-import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
+import { Controller, Get, HttpCode, HttpStatus, Param } from "@nestjs/common";
 
 @Controller("/Categorias")
  export class CategoriaController {
@@ -9,5 +9,11 @@ import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Categoria[]>{
         return this.CategoriaService.findAll();
+    }
+
+    @Get(':id')
+    @HttpCode(HttpStatus.OK)
+    findById(@Param('id')id:number):Promise<Categoria>{
+        return this.CategoriaService.findById(id);
     }
  }
