@@ -1,6 +1,6 @@
 import { Categoria } from '../entities/categoria.entity';
 import { CategoriaService } from './../services/categoria.service';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
 
 @Controller("/Categorias")
  export class CategoriaController {
@@ -22,4 +22,10 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestj
         return this.CategoriaService.create(categoria);
     }
 
+    @Put(':id')
+    @HttpCode(HttpStatus.OK)
+    update(@Param('id')id:number,@Body()categoria:Categoria):Promise<Categoria>{
+        categoria.id = Number(id);
+        return this.CategoriaService.update(categoria);
+    }
  }

@@ -1,4 +1,4 @@
-import {  Injectable, NotFoundException } from "@nestjs/common";
+import {  HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Categoria } from "../entities/categoria.entity";
 import { Repository } from "typeorm";
@@ -23,5 +23,11 @@ export class CategoriaService{
    async create(categoria:Categoria): Promise<Categoria>{
          return await this.CategoriaRepository.save(categoria);
    }
-    
+
+   async update(categoria:Categoria):Promise<Categoria>{
+   await this.findById(categoria.id)  
+   
+   return await this.CategoriaRepository.save(categoria);
+  }
+  
 }
